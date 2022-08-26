@@ -23,7 +23,7 @@ print(gridTraveler(18, 18)) # Don't try
 
 # Recursive with Memoization
 
-def gridTraveler(m, n, memo = {}):
+def gridTraveler(m, n, memo = {}):      # gridTraveler(a,b) == gridTraveler(b,a)
     key = str(m) + "," + str(n)
 
     if m == 1 and n == 1:
