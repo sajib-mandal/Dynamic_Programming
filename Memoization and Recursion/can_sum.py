@@ -30,3 +30,32 @@ print(cansum(7, [5, 3, 4, 7]))
 print(cansum(7, [2, 4]))
 print(cansum(8, [2, 3, 5]))
 #print(cansum(300, [7, 14]))  not try
+
+
+# recursive with memoization
+
+def cansum(targetsum, numbers, memo=None):
+    if memo is None:
+        memo = dict()
+    if targetsum in memo:
+        return memo[targetsum]
+    if targetsum in memo:
+        return memo[targetsum]
+    if targetsum < 0:
+        return False
+    if targetsum == 0:
+        return True
+    for number in numbers:
+        remainder = targetsum - number
+        if cansum(remainder, numbers, memo) == True:
+            memo[targetsum] = True
+            return True
+    memo[targetsum] = False
+    return False
+
+
+print(cansum(7, [2, 3]))
+print(cansum(7, [5, 3, 4, 7]))
+print(cansum(7, [2, 4]))
+print(cansum(8, [2, 3, 5]))
+print(cansum(300, [7, 14]))
