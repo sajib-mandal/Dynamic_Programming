@@ -39,12 +39,10 @@ def cansum(targetsum, numbers, memo=None):
         memo = dict()
     if targetsum in memo:
         return memo[targetsum]
-    if targetsum in memo:
-        return memo[targetsum]
-    if targetsum < 0:
-        return False
     if targetsum == 0:
         return True
+    if targetsum < 0:
+        return False
     for number in numbers:
         remainder = targetsum - number
         if cansum(remainder, numbers, memo) == True:
