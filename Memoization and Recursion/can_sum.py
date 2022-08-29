@@ -11,74 +11,48 @@ You may assume that all input numbers are non-negative.
 """
 
 # Recursion without memoization
-
-def cansum(targetSum, numbers):
-    if targetSum == 0:
-        return True
-    if targetSum < 0:
-        return False
-
+def how_sum(target_sum: int, numbers: list) -> list:
+    if target_sum == 0:
+        return []
+    if target_sum < 0:
+        return None
     for num in numbers:
-        reminder = targetSum - num
-        if cansum(reminder, numbers) == True:
-            return True
-    return False
+        remainder = target_sum - num
+        remainder_res = how_sum(remainder, numbers)
+        if remainder_res is not None:
+            remainder_res.append(num)
+            return remainder_res
+    return None
 
 
-print(cansum(7, [2, 3]))
-print(cansum(7, [5, 3, 4, 7]))
-print(cansum(7, [2, 4]))
-print(cansum(8, [2, 3, 5]))
-#print(cansum(300, [7, 14]))  not try
+print(can_sum(7, [2, 3]))
+print(can_sum(7, [5, 3, 4, 7]))
+print(can_sum(7, [2, 4]))
+print(can_sum(8, [2, 3, 5]))
+print(can_sum(300, [7, 14]))
 
 
-# recursive with memoization
+# recursion with memoization
 
-def cansum(targetsum, numbers, memo=None):
-    if memo is None:
-        memo = dict()
-    if targetsum in memo:
-        return memo[targetsum]
-    if targetsum == 0:
+def can_sum(target_sum: int, numbers: list, memo={}) -> bool:
+    if target_sum in memo:
+        return memo[target_sum]
+    if target_sum == 0:
         return True
-    if targetsum < 0:
+    if target_sum < 0:
         return False
-    for number in numbers:
-        remainder = targetsum - number
-        if cansum(remainder, numbers, memo) == True:
-            memo[targetsum] = True
-            return True
-    memo[targetsum] = False
-    return False
+    for num in numbers:
+        remainder = target_sum - num
+        if can_sum(remainder, numbers, memo):
+            memo[target_sum] = True
+            return memo[target_sum]
+
+    memo[target_sum] = False
+    return memo[target_sum]
 
 
-print(cansum(7, [2, 3]))
-print(cansum(7, [5, 3, 4, 7]))
-print(cansum(7, [2, 4]))
-print(cansum(8, [2, 3, 5]))
-print(cansum(300, [7, 14]))
-
-
-# next version
-def cansum(targetsum, numbers, memo=None):
-    if memo is None:
-        memo = dict()
-    if targetsum == 0:
-        return True
-    if targetsum < 0:
-        return False
-    if targetsum not in memo:
-        for number in numbers:
-            remainder = targetsum - number
-            if cansum(remainder, numbers, memo) == True:
-                memo[targetsum] = True
-                return True
-        memo[targetsum] = False
-        return False
-
-
-print(cansum(7, [2, 3]))
-print(cansum(7, [5, 3, 4, 7]))
-print(cansum(7, [2, 4]))
-print(cansum(8, [2, 3, 5]))
-print(cansum(300, [7, 14]))
+print(can_sum(7, [2, 3], memo={}))
+print(can_sum(7, [5, 3, 4, 7], memo={}))
+print(can_sum(7, [2, 4], memo={}))
+print(can_sum(8, [2, 3, 5], memo={}))
+print(can_sum(300, [7, 14], memo={}))
