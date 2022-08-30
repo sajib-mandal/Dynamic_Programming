@@ -4,7 +4,7 @@ def can_sum(target_sum: int, numbers: list) -> bool:
         table.append(False)
 
     table[0] = True
-    for i in range(len(table)):
+    for i in range(len(table)):   # for i in range(target_sum): both are same
         if table[i] == True:
             for num in numbers:
                 if i + num <= target_sum:
