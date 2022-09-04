@@ -33,7 +33,6 @@ def _array_stepper(numbers, i):
     return False
 
 
-
 print(array_stepper([2, 4, 2, 0, 0, 1]))  # -> True
 print(array_stepper([2, 3, 2, 0, 0, 1]))  # -> False
 print(array_stepper([3, 1, 3, 1, 0, 1]))  # -> True
@@ -42,5 +41,39 @@ print(array_stepper([4, 1, 2, 1, 1, 1, 0, 4]))  # -> False
 print(array_stepper([1, 1, 1, 1, 1, 0]))  # -> True
 
 
+
 # recursion with memoization
 
+def array_stepper(numbers):
+    return _array_stepper(numbers, 0, {})
+
+def _array_stepper(numbers, i, memo):
+    if i in memo:
+        return memo[i]
+    if i >= len(numbers) - 1:
+        return True
+
+    max_step = numbers[i]
+    for step in range(1, max_step + 1):
+        if _array_stepper(numbers, i + step, memo):
+            memo[i] = True
+            return True
+    memo[i] = False
+    return False
+
+
+print(array_stepper([2, 4, 2, 0, 0, 1]))  # -> True
+print(array_stepper([2, 3, 2, 0, 0, 1]))  # -> False
+print(array_stepper([3, 1, 3, 1, 0, 1]))  # -> True
+print(array_stepper([4, 1, 5, 1, 1, 1, 0, 4]))  # -> True
+print(array_stepper([4, 1, 2, 1, 1, 1, 0, 4]))  # -> False
+print(array_stepper([1, 1, 1, 1, 1, 0]))  # -> True
+print(array_stepper([1, 1, 1, 1, 0, 0]))  # -> False
+print(array_stepper([
+  31, 30, 29, 28, 27,
+  26, 25, 24, 23, 22,
+  21, 20, 19, 18, 17,
+  16, 15, 14, 13, 12,
+  11, 10, 9, 8, 7, 6,
+  5, 3, 2, 1, 0, 0, 0
+]))  # -> False
