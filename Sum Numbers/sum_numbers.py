@@ -13,3 +13,18 @@ def sum_numbers(n):
 
 print(sum_numbers(4))  # prints 10
 print(sum_numbers(5))  # prints 15
+
+
+
+# DP with Recursive
+
+def sum_numbersR(n):
+    # Base case
+    if n == 1:
+        return 1
+    # Recursive case
+    else:
+        return sum_numbersR(n - 1) + n
+
+print(sum_numbersR(4))  # prints 10
+print(sum_numbersR(5))  # prints 15
